@@ -2,6 +2,7 @@ import React,{useState} from 'react'
 import { useNavigate, Link } from 'react-router'
 import "../auth.form.scss"
 import { useAuth } from '../hooks/useAuth'
+import Spinner from '../../../components/Spinner'
 
 const Login = () => {
 
@@ -18,7 +19,7 @@ const Login = () => {
     }
 
     if(loading){
-        return (<main><h1>Loading.......</h1></main>)
+        return <Spinner text="Signing you in..." />
     }
 
 

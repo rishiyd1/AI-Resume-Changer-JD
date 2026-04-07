@@ -239,6 +239,152 @@ $font-stack:     system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Robot
         color: $text-muted;
         margin: 0;
     }
+
+    // ── Uploaded State ──
+    &--uploaded {
+        border-style: solid;
+        border-color: #3fb950;
+        background-color: rgba(#3fb950, 0.05);
+        cursor: default;
+        padding: 0;
+        overflow: hidden;
+        gap: 0;
+
+        &:hover {
+            border-color: #3fb950;
+            background-color: rgba(#3fb950, 0.08);
+        }
+    }
+
+    &__file-info {
+        display: flex;
+        align-items: center;
+        gap: 0.75rem;
+        width: 100%;
+        padding: 1rem 1rem;
+    }
+
+    &__file-icon {
+        flex-shrink: 0;
+        color: $accent;
+        display: flex;
+        align-items: center;
+    }
+
+    &__file-details {
+        flex: 1;
+        min-width: 0;
+    }
+
+    &__file-name {
+        margin: 0;
+        font-size: 0.875rem;
+        font-weight: 600;
+        color: $text-primary;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+    }
+
+    &__file-size {
+        margin: 0;
+        font-size: 0.75rem;
+        color: $text-muted;
+        margin-top: 0.15rem;
+    }
+
+    &__remove-btn {
+        flex-shrink: 0;
+        background: none;
+        border: none;
+        color: $text-muted;
+        cursor: pointer;
+        padding: 0.35rem;
+        border-radius: 0.3rem;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        transition: color 0.15s, background-color 0.15s;
+
+        &:hover {
+            color: #ff4d4d;
+            background-color: rgba(#ff4d4d, 0.1);
+        }
+    }
+
+    &__success-bar {
+        width: 100%;
+        height: 3px;
+        background: linear-gradient(90deg, #3fb950, #2ea043);
+        animation: successBarGrow 0.5s ease-out forwards;
+    }
+}
+
+@keyframes successBarGrow {
+    from { transform: scaleX(0); transform-origin: left; }
+    to   { transform: scaleX(1); transform-origin: left; }
+}
+
+// ── Toast ─────────────────────────────────────────────────────────────────────
+.toast {
+    position: fixed;
+    top: 1.5rem;
+    right: 1.5rem;
+    display: flex;
+    align-items: center;
+    gap: 0.6rem;
+    padding: 0.75rem 1rem;
+    border-radius: 0.5rem;
+    font-family: $font-stack;
+    font-size: 0.85rem;
+    z-index: 9999;
+    animation: toastSlideIn 0.35s ease-out forwards;
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.35);
+
+    &--success {
+        background-color: #1a2e1a;
+        border: 1px solid #3fb950;
+        color: #3fb950;
+    }
+
+    &__icon {
+        display: flex;
+        align-items: center;
+        flex-shrink: 0;
+    }
+
+    &__message {
+        flex: 1;
+        color: $text-primary;
+    }
+
+    &__close {
+        flex-shrink: 0;
+        background: none;
+        border: none;
+        color: $text-muted;
+        cursor: pointer;
+        padding: 0.2rem;
+        display: flex;
+        align-items: center;
+        border-radius: 0.25rem;
+        transition: color 0.15s;
+
+        &:hover {
+            color: $text-primary;
+        }
+    }
+}
+
+@keyframes toastSlideIn {
+    from {
+        opacity: 0;
+        transform: translateY(-1rem) translateX(0.5rem);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0) translateX(0);
+    }
 }
 
 // ── OR Divider ────────────────────────────────────────────────────────────────
@@ -339,12 +485,19 @@ $font-stack:     system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Robot
             border: 1px solid $border-color;
             border-radius: 0.5rem;
             padding: 1rem;
+            padding-right: 2.25rem;
             flex: 1;
             display: flex;
             flex-direction: column;
             gap: 0.5rem;
             cursor: pointer;
             flex-shrink: 0;
+            position: relative;
+            transition: border-color 0.2s;
+
+            &:hover {
+                border-color: color.adjust($border-color, $lightness: 8%);
+            }
 
             .match-score {
                 font-size: 0.8rem;
@@ -353,6 +506,28 @@ $font-stack:     system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Robot
                 align-items: flex-start;
             }
         }
+    }
+}
+
+.report-item__delete {
+    position: absolute;
+    top: 0.5rem;
+    right: 0.5rem;
+    background: rgba(255, 255, 255, 0.05);
+    border: 1px solid $border-color;
+    color: $text-muted;
+    cursor: pointer;
+    padding: 0.35rem;
+    border-radius: 0.35rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: color 0.15s, background-color 0.15s, border-color 0.15s;
+
+    &:hover {
+        color: #ff4d4d;
+        background-color: rgba(#ff4d4d, 0.15);
+        border-color: rgba(#ff4d4d, 0.3);
     }
 }
 
